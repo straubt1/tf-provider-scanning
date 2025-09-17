@@ -84,7 +84,10 @@ fi
 # Verify checksum using sha256sum if available, otherwise use shasum
 info "Verifying checksum..."
 if command -v sha256sum >/dev/null 2>&1; then
-  (cd "$DOWNLOAD_DIR" && sha256sum -c "$SUMS_FILE" --ignore-missing)
+  if ! (cd "$DOWNLOAD_DIR" && sha256sum -c "$SUMS_FILE" --ignore-missing); then
+    err "Checksum verification failed using sha256sum."
+    exit 1
+  fi
 elif command -v shasum >/dev/null 2>&1; then
   if ! (cd "$DOWNLOAD_DIR" && shasum -a 256 -c "$SUMS_FILE"); then
     err "Checksum verification failed using shasum."
