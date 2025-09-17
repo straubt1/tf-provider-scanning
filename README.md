@@ -25,16 +25,21 @@ Note: Installing `coreutils` provides `sha256sum` as `gsha256sum` on macOS; the 
 
 ## Quickstart / Usage
 
+The script expects two arguments: provider name (for example `aws` or `random`) and the provider version (for example `6.13.0` or `3.7.2`).
+It currently targets the `linux_amd64` platform by default.
+
 Run the script from the repository root:
 
 ```bash
 ./download-verify.sh <provider-name> <version>
-# examples
+```
+
+Examples:
+
+```bash
 ./download-verify.sh random 3.7.2
 ./download-verify.sh aws 6.13.0
 ```
-
-The script expects two arguments: provider name (for example `aws` or `random`) and the provider version (for example `6.13.0` or `3.7.2`). It currently targets the `linux_amd64` platform by default.
 
 ## What `download-verify.sh` does
 
@@ -44,7 +49,7 @@ High-level flow:
    - provider zip (binary for `linux_amd64`)
    - SHA256SUMS and SHA256SUMS.sig files
 2. Verify the binary checksum using `sha256sum` or `shasum`.
-3. Verify the GPG signature of the SUMS file using `gpg --verify`.
+3. Verify the GPG signature of the SHA256SUMS file using `gpg --verify`.
 4. Unzip the provider archive to the `download/` directory.
 5. Copy the provider binary (an x5 archive) into `release/<provider>/<version>/linux_amd64/`.
 6. Scan the provider binary with `grype` (container/binary vulnerability scanning) and `govulncheck` in binary mode.
