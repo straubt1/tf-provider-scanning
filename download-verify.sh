@@ -3,7 +3,7 @@
 # Script to download and verify Terraform provider
 # Usage: ./download-verify.sh <provider-name> <version>
 
-# Note: Unzipping certain provider repo's has caused some issues
+# Note: Unzipping certain provider repos has caused some issues
 
 set -euo pipefail
 
